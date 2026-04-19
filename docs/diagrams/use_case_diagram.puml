@@ -1,0 +1,27 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor Anonimo
+actor Socio
+actor Administrador
+
+rectangle "Biblioteca Partilhada" {
+  usecase UC_Listar as "Listar títulos
+  --
+    pontos de extensão
+    Ordenar lista
+    Filtrar lista"
+
+  usecase UC_Ordenar as "Ordenar lista"
+  usecase UC_Filtrar as "Filtrar lista"
+
+}
+
+Anonimo -- UC_Listar
+Socio -- UC_Listar
+
+UC_Ordenar ..> UC_Listar : <<extend>> [Coluna; ordem]
+UC_Filtrar ..> UC_Listar : <<extend>> [Critérios de filtro]
+
+@enduml
