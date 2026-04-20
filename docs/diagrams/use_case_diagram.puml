@@ -1,4 +1,4 @@
-@startuml
+@startuml Biblioteca
 left to right direction
 skinparam packageStyle rectangle
 
@@ -11,17 +11,55 @@ rectangle "Biblioteca Partilhada" {
   --
     pontos de extensão
     Ordenar lista
-    Filtrar lista"
+    Filtrar lista
+    Consultar detalhes"
 
   usecase UC_Ordenar as "Ordenar lista"
   usecase UC_Filtrar as "Filtrar lista"
+  usecase UC_Consultar as "Mostrar detalhes
+  ---
+    pontos de extensão
+    verificar utilizador"
 
+  usecase UC_disponibilidade as "Mostrar disponibilidade"
+
+  usecase UC_candidatura as "Submeter candidatura"
+  usecase UC_validar as "Validar candidatura"
+
+  usecase UC_add_livro as "Adicionar livro
+  ---
+    pontos de extensão
+    Verfica título"
+  usecase UC_add_titulo as "Adicionar título"
+  usecase UC_add_exemplar as "Adicionar exemplar"
+
+  usecase UC_remover_exemplar as "Remover exemplar
+  ---
+    pontos de extensão
+    Verificar exemplares"
+
+  usecase UC_titulo_indisponivel as "Marcar indisponível"
+ 
 }
 
 Anonimo -- UC_Listar
+Anonimo -- UC_candidatura
 Socio -- UC_Listar
+Socio <-- UC_disponibilidade
+Socio -- UC_add_livro
+Socio -- UC_remover_exemplar
+Administrador -- UC_validar
+Administrador -- UC_remover_exemplar
 
 UC_Ordenar ..> UC_Listar : <<extend>> [Coluna; ordem]
 UC_Filtrar ..> UC_Listar : <<extend>> [Critérios de filtro]
+UC_Consultar ..> UC_Listar : <<extend>> [titulo]
+
+UC_disponibilidade ..> UC_Consultar : <<extend>> [utilizador==socio]
+
+UC_add_livro ..> UC_add_exemplar : <<include>>
+UC_add_titulo ..> UC_add_livro : <<extend>> [título não existe]
+
+UC_titulo_indisponivel ..> UC_remover_exemplar : <<extend>> [exemplares == 0]
 
 @enduml

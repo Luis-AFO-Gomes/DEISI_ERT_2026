@@ -15,8 +15,8 @@ Na lista deve ser apresentado o título do livro, autor principal, idioma e data
 A lista pode ser ordenada por título ou autor<br>
 **Tipo**: Funcional<br>
 **Stakeholder**: (anónimo)<br>
-**Prioridade**: Must have<br>
-**Esforço**: L<br>
+**Prioridade**: Could have<br>
+**Esforço**: M<br>
 **Variant?**: Sim<br>
 **Critérios de Aceitação**:
 - Por defeito, a lista é ordenada por autor
@@ -25,3 +25,17 @@ A lista pode ser ordenada por título ou autor<br>
 - Não há ordenações compostas
   
 ## REQ-003: Filtrar lista
+**Descrição**: Enquanto **utilizador da plataforma** pretendo que a **lista seja filtrável** para **facilitar a identificação de títulos existentes**<br>
+A lista pode ser filtrada por título e/ou autor<br>
+**Tipo**: Funcional<br>
+**Stakeholder**: (anónimo)<br>
+**Prioridade**: Should have<br>
+**Esforço**: M<br>
+**Variant?**: Sim<br>
+**Critérios de Aceitação**:
+- Por defeito, a lista é apresentada sem filtros
+- Seleccionando os critérios de filtro, a apresentação da lista é alterada para ser apresentada filtrada pelos critérios seleccionados
+- Os filtros são cumulativos, ou seja, é possível filtrar por título e autor ao mesmo tempo
+- A lista é atualizada dinamicamente à medida que os critérios de filtro são seleccionados ou deseleccionados, é necessário o mínimo de 4 caracteres num campo de filtro para que este seja aplicado
+- A aplicação de um filtro não altera a ordenação da lista, que se mantém conforme a última ordenação seleccionada
+- Existe a possibilidade de filtragem avançada por campos não apresentados na lista, sendo apresentado ecrã próprio para especificação de critérios

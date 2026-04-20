@@ -14,9 +14,6 @@
 - **UC-01**: Listar títulos
 - **UC-02**: Ordenar lista
 - **UC-03**: Filtrar lista
-- **UC-04**: <verb + object>
-- **UC-05**: <verb + object>
-- **UC-06**: <verb + object>
 
 ## Diagram file
 - **Path**: `docs/diagrams/use_case_diagram.puml`
