@@ -1,0 +1,17 @@
+// pyrightconfig.json
+// Configuração do Pyright para o projeto, especificando o ambiente de execução para a pasta "bdd" e desativando a geração de relatórios de problemas de chamadas.
+// O behave tem problemas conhecidos com análise de tipos (decorators) em VSCode e Pyright
+// Para evitar esse problemas - Pyright indicar erros relacionados a chamadas de funções decoradas - declara-se uma situação de excepção para o ambiente
+// configurando "reportCallIssue" para "none" na pasta "bdd", onde estão localizados os arquivos de teste do behave.
+// Para mais informações, consulte:
+//  - https://github.com/behave/behave/issues/123
+{
+  "executionEnvironments": [
+    {
+      "root": "./bdd",
+      "reportCallIssue": "none"
+    }
+  ],
+  "include": ["bdd", "dao.py"],
+  "extraPaths": ["."]
+}

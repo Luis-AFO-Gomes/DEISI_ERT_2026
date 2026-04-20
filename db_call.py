@@ -5,7 +5,7 @@ def test_db_connection():
     """
     Tests the database connection by attempting to connect and printing the result.
     """
-    myDao = dao.dao()
+    myDao = dao.DAO()
     print(myDao)
     connection = myDao.connect()
 
@@ -90,7 +90,7 @@ def autors_livro(conn: pyodbc.Connection, table: str, schema: str = "dbo", livro
 if __name__ == "__main__":
 #    test_db_connection()
 
-    myDao = dao.dao()
+    myDao = dao.DAO()
     conn = myDao.connect()
 
     if conn:

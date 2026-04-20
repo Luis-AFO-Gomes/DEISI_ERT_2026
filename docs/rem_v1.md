@@ -1,13 +1,15 @@
 # Matrizes de Requisitos - Versão 1.0.0
+
 ## lista de requisitos
+
 - [Matrizes de Requisitos - Versão 1.0.0](#matrizes-de-requisitos---versão-100)
   - [lista de requisitos](#lista-de-requisitos)
   - [REQ-001: Lista de títulos](#req-001-lista-de-títulos)
   - [REQ-002: Ordenar lista](#req-002-ordenar-lista)
   - [REQ-003: Filtrar lista](#req-003-filtrar-lista)
   
-
 ## REQ-001: Lista de títulos
+
 <table>
     <tr>
         <td><strong>ID:</strong></td>
@@ -59,7 +61,7 @@
         <td colspan="6">
         <ol>
             <li>Existem títulos em catálogos</li>
-            <li>Não é requeriddo login</li>
+            <li>Não é requerido login</li>
         </ol>
         </td>
     </tr>
@@ -110,6 +112,7 @@
 --- [Voltar ao índice](#lista-de-requisitos) ---
 
 ## REQ-002: Ordenar lista
+
 <table>
     <tr>
         <td><strong>ID:</strong></td>
@@ -161,7 +164,7 @@
         <td colspan="6">
         <ol>
             <li>A lista está carregada no ecrã</li>
-            <li>Não é requeriddo login</li>
+            <li>Não é requerido login</li>
         </ol>
         </td>
     </tr>
@@ -211,6 +214,7 @@
 --- [Voltar ao índice](#lista-de-requisitos) ---
 
 ## REQ-003: Filtrar lista
+
 <table>
     <tr>
         <td><strong>ID:</strong></td>
