@@ -134,6 +134,7 @@ BEGIN TRANSACTION
             (N'A014      ',N'978-8535212730'),
             (N'A015      ',N'978-8535212730');
         END
+        COMMIT TRANSACTION;
 
     END TRY
     
@@ -141,4 +142,3 @@ BEGIN TRANSACTION
         ROLLBACK TRANSACTION;
         THROW;
     END CATCH
-END
