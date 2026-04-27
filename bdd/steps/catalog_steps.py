@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-# requer a instalação do pacote "behave" (pip install behave) no ambiente de desenvolvimento (preferencialemnte num virtualenv)
+# Proper use requires the installation of the "behave" package (pip install behave) in the development environment 
+# (preferably in a virtualenv)
 from behave import given, when, then
 import unicodedata
 
-
+# Set text to utf-8 and remove accents for more robust comparisons
 def normalize_text(value):
     if value is None:
         return ""
@@ -70,15 +71,16 @@ def step_then_apresenta_todos_os_titulos(context):
     visible = context.catalog.visible_titles
     assert visible, "Nenhum título foi apresentado."
 
-    # Com a estrutura actual, assumimos que todos os livros da tabela livro
-    # devem ser apresentados no catálogo.
+    # All books in the test database should be visible
+    # Adjust len (currently set to 8) based on the provided SQL data
     isbns = [row["isbn"] for row in visible]
     assert len(isbns) == 8, (
         f"Esperava-se 8 títulos com base nos dados SQL fornecidos, "
         f"mas foram encontrados {len(isbns)}."
     )
 
-
+# Availability information is not currently part of the data model, out-of-scope for selected slice
+# This criterion was not implemented, this step will raise a NotImplementedError.
 @then("apresenta também os títulos que não estejam disponíveis para empréstimo")
 def step_then_apresenta_tambem_indisponiveis(context):
     raise NotImplementedError(

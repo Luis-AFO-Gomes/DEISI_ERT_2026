@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
+# Proper use requires the installation of the "behave" package (pip install behave) in the development environment 
+# (preferably in a virtualenv)
 from pathlib import Path
 import sys
 
 # ---------------------------------------------------------
 # Import path setup
+# Required to allow importing the DAO class from the parent directory (project root)
 # ---------------------------------------------------------
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
@@ -77,6 +80,8 @@ class CatalogService:
 
 # ---------------------------------------------------------
 # Behave hooks
+# Basic functionality to set up the context for the tests, 
+# including database connection and service initialization.
 # ---------------------------------------------------------
 def before_all(context):
     context.dao = DAO()
