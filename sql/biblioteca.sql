@@ -1,3 +1,8 @@
+USE master
+IF OBJECT_ID('biblioteca', 's') IS NOT NULL
+    ALTER DATABASE biblioteca SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE IF EXISTS biblioteca;
+
 IF OBJECT_ID('biblioteca', 's') IS NULL
 BEGIN
     CREATE DATABASE biblioteca;
@@ -53,7 +58,7 @@ BEGIN
         idioma varchar(5) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT NULL NULL,
         tema varchar(MAX) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT NULL NULL,
         tipo varchar(MAX) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT NULL NULL,
-        editora char(9) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+        editora char(9) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT NULL NULL,
         dtPub decimal(4,0) DEFAULT NULL NULL,
         original char(14) COLLATE SQL_Latin1_General_CP1_CI_AS DEFAULT NULL NULL,
         CONSTRAINT pk_livro PRIMARY KEY (ISBN),
@@ -142,3 +147,5 @@ BEGIN TRANSACTION
         ROLLBACK TRANSACTION;
         THROW;
     END CATCH
+
+    SELECT * FROM biblioteca.dbo.livro;

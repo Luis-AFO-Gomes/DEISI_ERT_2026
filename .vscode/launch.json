@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run desktop_app",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "desktop_app.main",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal"
+        }
+    ]
+}

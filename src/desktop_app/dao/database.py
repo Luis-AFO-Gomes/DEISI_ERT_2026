@@ -6,27 +6,31 @@ import platform
 class DAO:
     __conn_str: str
     __db_connection: pyodbc.Connection|None
+    __config: configparser.ConfigParser
 
     def __init__(self):
-        config = configparser.ConfigParser()
-        ini_path = Path(__file__).resolve().parent.parent / "config" / "config.ini"
-        print(f"Loading configuration from: {ini_path}")
-        config.read(ini_path, encoding="utf-8")
+        self.__config = configparser.ConfigParser()
+        ini_path = Path(__file__).resolve().parents[1] / "config" / "config.ini"
+#        print(f"Loading configuration from: {ini_path}")
+        if not ini_path.exists():
+            raise FileNotFoundError(f"Configuration file not found: {ini_path}")
+        
+        self.__config.read(ini_path, encoding="utf-8")
     
-        self.__conn_str = (f"DRIVER={{{config['myMSSQLdb']['driver']}}};"
-            f"SERVER={config['myMSSQLdb']['host']};"
-            f"DATABASE={config['myMSSQLdb']['db']};"
-            f"UID={config['myMSSQLdb']['user']};"
-            f"PWD={config['myMSSQLdb']['pass']};"   
-            f"Encrypt={config['myMSSQLdb']['encrypt']};"
-            f"TrustServerCertificate={config['myMSSQLdb']['trust_server_certificate']};"
+        self.__conn_str = (f"DRIVER={{{self.__config['myMSSQLdb']['driver']}}};"
+            f"SERVER={self.__config['myMSSQLdb']['host']};"
+            f"DATABASE={self.__config['myMSSQLdb']['db']};"
+            f"UID={self.__config['myMSSQLdb']['user']};"
+            f"PWD={self.__config['myMSSQLdb']['pass']};"   
+            f"Encrypt={self.__config['myMSSQLdb']['encrypt']};"
+            f"TrustServerCertificate={self.__config['myMSSQLdb']['trust_server_certificate']};"
         )
 
-        print("Connecting to database...")  
+#        print("Connecting to database...")  
 #        print(f"Connection string: {self.__conn_str}")
         try:
             self.__db_connection = pyodbc.connect(self.__conn_str)
-            print("Connection established successfully.")
+#            print("Connection established successfully.")
         except pyodbc.Error as e:
             print(f"Error connecting to database: {e}")
             self.__db_connection = None
@@ -34,7 +38,7 @@ class DAO:
     def __del__(self):
         if self.__db_connection:
             self.__db_connection.close()
-            print("Database connection closed.")
+#            print("Database connection closed.")
 
     def __str__(self) -> str:
         return f"DAO(Connection String: {self.__conn_str})"            
@@ -51,14 +55,14 @@ class DAO:
         print(f"plataform:{platform.architecture()}")
         print(f"drivers: {pyodbc.drivers()}")
 
-        config = configparser.ConfigParser()
-        ini_path = Path(__file__).resolve().parent.parent / "config" / "config.ini"
-        config.read(ini_path, encoding="utf-8")
+#        config = configparser.ConfigParser()
+#        ini_path = Path(__file__).resolve().parent.parent / "config" / "config.ini"
+#        config.read(ini_path, encoding="utf-8")
 
         # print("Loaded files:", config)
-        print("Sections:", config.sections())
+        print("Sections:", self.__config.sections())
 
-        print(f"driver: {config['myMSSQLdb']['driver']}")
+        print(f"driver: {self.__config['myMSSQLdb']['driver']}")
 
     def listar_titulos(self, filtros=None, order_by=None, direction="ascendente"):
         filtros = dict(filtros or {})
