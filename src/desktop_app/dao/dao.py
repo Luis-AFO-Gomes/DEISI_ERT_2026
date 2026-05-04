@@ -9,7 +9,7 @@ class DAO:
 
     def __init__(self):
         config = configparser.ConfigParser()
-        ini_path = Path(__file__).resolve().parent / "config" / "config.ini"
+        ini_path = Path(__file__).resolve().parent.parent / "config" / "config.ini"
         print(f"Loading configuration from: {ini_path}")
         config.read(ini_path, encoding="utf-8")
     
@@ -52,7 +52,7 @@ class DAO:
         print(f"drivers: {pyodbc.drivers()}")
 
         config = configparser.ConfigParser()
-        ini_path = Path(__file__).resolve().parent / "config" / "config.ini"
+        ini_path = Path(__file__).resolve().parent.parent / "config" / "config.ini"
         config.read(ini_path, encoding="utf-8")
 
         # print("Loaded files:", config)

@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "DEISI_ERT_2026"
+version = "0.1.0"
+description = "Academic example for a Desktop library management application"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+  { name = "Alexandre Gomes" }
+]
+dependencies = [
+  "pyodbc",
+]
+
+[project.scripts]
+library-manager = "desktop_app.main:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["desktop_app*"]
