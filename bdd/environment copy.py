@@ -13,7 +13,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-# from src.desktop_app.dao.database import DAO
+from src.desktop_app.dao.database import DAO
 from src.desktop_app.models import livro
 from src.desktop_app.dao import database
 
@@ -88,9 +88,7 @@ class CatalogService:
 # including database connection and service initialization.
 # ---------------------------------------------------------
 def before_all(context):
-#    context.dao = DAO()
-#    context.livro=livro.Livro()
-    context.dao = database.DAO()
+    context.dao = DAO()
 
     if context.dao.connect() is None:
         raise RuntimeError("Não foi possível estabelecer ligação à base de dados.")
