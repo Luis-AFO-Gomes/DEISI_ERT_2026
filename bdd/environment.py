@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+# Proper use requires the installation of the "behave" package (pip install behave) in the development environment 
+# (preferably in a virtualenv)
+# To run test, execute comand: python -m behave .\bdd
+
 from pathlib import Path
 import sys
 import unicodedata
