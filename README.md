@@ -119,6 +119,122 @@ Students are invited to grow the application by adding classes or other function
 
 ---
 
+## Testing
+
+Testing is essential to reduce defects early, improve confidence in changes, and keep requirements aligned with implementation. In this project, testing is applied at multiple levels, each with a clear purpose.
+
+### Static testing
+
+For quick, hardcoded examples of the main application flow, use the static tests/functions already present in the application entry logic.
+
+- Follow the execution guidance in [Run the application](#run-the-application).
+- These checks are useful to validate expected behaviour during manual development cycles.
+
+### Unit testing
+
+Unit tests validate isolated components and support TDD practices.
+
+- Test suites are in [tests/](tests/).
+- Execution instructions are documented in [tests/README.md](tests/README.md).
+
+### System Integration Testing (SIT) with BDD
+
+SIT validates end-to-end behaviour across components using BDD scenarios.
+
+- BDD assets are in [bdd/](bdd/).
+- Execution instructions are documented in [bdd/README.md](bdd/README.md).
+
+### User Acceptance Testing (UAT)
+
+UAT should be performed by real users, not by automated code, to confirm the system supports real usage expectations.<br>
+UAT should be performed in a realistic environment, with real users, and should focus on validating that the system meets user needs and expectations.
+
+The development team should prepare a UAT script with:
+
+1. Objective of the test.
+2. Preconditions (environment, data, user role).
+3. Step-by-step actions.
+4. Expected result for each step.
+5. Space for observations and approval/rejection.
+
+#### Example 
+##### - Simple UAT script (test case):  ***Book insertion***
+
+1. Open the application.
+2. Navigate to the "Insert Book" option.
+3. Fill in valid data (for example: title, author, publisher, year, ISBN).
+4. Submit the form.
+5. Confirm the new book appears in the list and data is persisted.
+- **Expected result**: The book is successfully inserted, visible in the list.
+
+##### - More comprehensive UAT script (test plan): ***Book Insertion***<br>
+A test plan would include multiple test cases covering all critical functionalities, with detailed steps and expected results for each case.<br>
+  - **Objective**: Validate that users can successfully insert a new book into the system and that the data is correctly stored and displayed.
+  - **Preconditions**: User is logged in with appropriate permissions, the application is running, and the database is accessible.
+  - **Test case 1**: **New book insertion with valid data**
+    - **Test case ID**: TC-001
+    - **Description**: Verify that a user can insert a new book with valid data and that it is correctly stored and displayed.
+    - **Steps**:
+      1. Open the application.
+      2. Navigate to the "Insert Book" option.
+      3. Insert required data (e.g., title, author, publisher, year, ISBN) for a new book (not in the database).
+      4. Submit the form.
+      5. After submission confirmation, navigate to the book list or search for the newly inserted book and data is correctly displayed.
+      6. Confirm the new book appears in the book list
+    - **Expected result**: The book is successfully inserted, visible in the list, and data is persisted in the database.
+  - **Test case 2**: **Book insertion with missing required fields**
+    - **Test case ID**: TC-002
+    - **Description**: Verify that the system prevents book insertion when required fields are missing and displays appropriate error messages.
+    - **Steps**:
+      1. Open the application.
+      2. Navigate to the "Insert Book" option.
+      3. Attempt to submit the form with one or more required fields left empty (e.g., missing title).
+    - **Expected result**: The system prevents submission, displays an error message indicating which fields are required, and does not insert the book.
+  - **Test case 3**: **Book insertion with invalid data**
+    - **Test case ID**: TC-003
+    - **Description**: Verify that the system prevents book insertion when invalid data is provided and displays appropriate error messages.
+    - **Steps**:
+      1. Open the application.
+      2. Navigate to the "Insert Book" option.
+      3. Attempt to submit the form with invalid data (e.g., non-numeric characters in the year field).
+    - **Expected result**: The system prevents submission, displays an error message indicating the invalid data, and does not insert the book.
+  - **Test case 4**: **Book insertion with duplicate ISBN**
+    - **Test case ID**: TC-004
+    - **Description**: Verify that the system prevents book insertion when a duplicate ISBN is provided and displays appropriate error messages.
+    - **Steps**:
+      1. Open the application.
+      2. Navigate to the "Insert Book" option.
+      3. Attempt to submit the form with an ISBN that already exists in the database.
+    - **Expected result**: The system prevents submission, displays an error message indicating the duplicate ISBN, and does not insert the book.<br>
+  
+Detending on implemented ***Use Case***, the test plan can be extended or modified accordingly to desired functionality, additional test cases can be added to cover new features as they are implemented.<br>
+For instance, when adding ***Authors***, additional test cases should be created to check books have author(s) and they exist in the database. This new test case are part of book insertion test case and should be performed autonomously from test case on authors<br>
+The test plan should be comprehensive enough to cover all critical paths and edge cases related to book insertion, ensuring that the system behaves correctly under various conditions.
+    
+### Best practices for TDD and BDD (KISS)
+
+- Write tests before production code.
+- Start writing tests from requirement elicitation and analysis.
+- Keep tests directly traceable to requirements and acceptance criteria - see [Test Traceability matrix](Traceability_req_tc.md).
+- Follow through the project flow shown in [Suggested Reading Order](#suggested-reading-order).
+- Keep scenarios and assertions simple, explicit, and focused on behaviour.
+- Review and refactor tests regularly to maintain clarity and relevance as the project evolves. Update tests when requirements change to ensure they remain aligned with the current system behaviour and expectations.
+- Tests should be self-explanatory and maintainable, so they can be easily understood and updated by anyone on the team, including future developers who may work on the project after the original authors. This includes using clear naming conventions for test cases, organizing tests logically, and providing comments or documentation where necessary to explain complex scenarios or reasoning behind certain test cases.
+- Make test regression a regular part of the development process, ensuring that new changes in coding do not break existing functionality (***this is a common pitfall when using unguided GenAI***). Test regression by running the full test suite frequently, specially after significant code changes or before merging (including **Git pull requests**) new features into the main branch.
+
+
+
+
+---
+
 ## Conclusion
+### Requirements and Use Case drive the test design, not coding
+<p>If no change is made to the requirements or Use Cases, there should be no change to the tests.</p> 
+
+<p>If regression test fail, <strong>the issue is in the code, not in the tests</strong>. This is a fundamental principle of TDD and BDD: tests are designed to validate that the code meets the specified requirements and use cases. </p>
+
+ <p>It is never enought to emphasize the importance of maintaining a <strong>clear separation between requirements, test design, and code implementation</strong>, ensuring that tests serve as a reliable safety net for catching defects without being affected by changes in requirements or use cases unless those changes explicitly require updates to the tests.</p>
+
+---
 
 The tests and source code in this project contain **intentional errors**. These errors are deliberate and serve as learning material — they are meant to be discovered when running the tests, reading test results, and practising debugging. Finding and understanding these errors is part of the learning experience.
