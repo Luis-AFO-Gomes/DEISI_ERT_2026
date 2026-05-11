@@ -116,7 +116,8 @@ class TestLivroDAOCRUD(unittest.TestCase):
             tipo=["Romance"],
             tema=["História"],
             data_publicacao=2024,
-            editora=None
+            editora=None,
+            disponivel="disponivel"
         )
 
     def test_criar_success(self):
@@ -162,7 +163,8 @@ class TestLivroDAOCRUD(unittest.TestCase):
             Tipo='["Romance"]',
             Tema='["História"]',
             dtPub=2024,
-            editora=None
+            editora=None,
+            disponivel="disponivel"
         )
 
         livro = self.dao.obter_por_isbn("9780000000001")
@@ -239,8 +241,7 @@ class TestLivroDAOCRUD(unittest.TestCase):
         filtros = {
             "ISBN": "9780000000001",
             "titulo": "Python",
-            "idioma": "Português",
-            "ano_publicacao": 2024
+            "disponivel": "disponivel"
         }
 
         result = self.dao.listar(
@@ -256,8 +257,7 @@ class TestLivroDAOCRUD(unittest.TestCase):
 
         self.assertIn("AND ISBN = ?", sql)
         self.assertIn("AND Titulo LIKE ?", sql)
-        self.assertIn("AND Idioma = ?", sql)
-        self.assertIn("AND YEAR(Data_Publicacao) = ?", sql)
+        self.assertIn("AND disponivel = ?", sql)
         self.assertIn("ORDER BY ISBN DESC", sql)
 
         self.assertEqual(
@@ -265,8 +265,7 @@ class TestLivroDAOCRUD(unittest.TestCase):
             [
                 "9780000000001",
                 "%Python%",
-                "Português",
-                2024
+                1
             ]
         )
 
