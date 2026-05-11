@@ -116,8 +116,8 @@ if __name__ == "__main__":
     livros = LivroDAO().listar()
     tools.print_list(
         livros, 
-        columns=["ISBN", "Titulo", "Idioma", "Tipo", "Tema", "Data_Publicacao"], 
-        headers=["ISBN", "Título", "Idioma", "Tipo", "Tema", "Ano Publicação"]
+        columns=["ISBN", "Titulo", "Idioma", "Tipo", "Tema", "Data_Publicacao", "Disponivel"], 
+        headers=["ISBN", "Título", "Idioma", "Tipo", "Tema", "Ano Publicação", "Disponível"]
     )
 
     dao = LivroDAO()
@@ -129,7 +129,8 @@ if __name__ == "__main__":
         tipo=["Manual", "Programação"],
         tema=["Python", "Bases de Dados"],
         data_publicacao=2024,
-        editora=None
+        editora=None,
+        disponivel="disponivel"
     )
 
     print("\nCriando livro de teste (ISBN = '9781234567890')...\n ")
@@ -141,24 +142,24 @@ if __name__ == "__main__":
     livros = dao.listar(order_by="titulo", direction="ascendente")
     tools.print_list(
         livros, 
-        columns=["ISBN", "Titulo", "Idioma", "Tipo", "Tema", "Data_Publicacao"], 
-        headers=["ISBN", "Título", "Idioma", "Tipo", "Tema", "Ano Publicação"]
+        columns=["ISBN", "Titulo", "Idioma", "Tipo", "Tema", "Data_Publicacao", "Disponivel"], 
+        headers=["ISBN", "Título", "Idioma", "Tipo", "Tema", "Ano Publicação", "Disponível"]
     )
 
     print("\n A mesma lista mas orden descendente de titulo:\n")
     livros = dao.listar(order_by="titulo", direction="desc")
     tools.print_list(
         livros, 
-        columns=["ISBN", "Titulo", "Idioma", "Tipo", "Tema", "Data_Publicacao"], 
-        headers=["ISBN", "Título", "Idioma", "Tipo", "Tema", "Ano Publicação"]
+        columns=["ISBN", "Titulo", "Idioma", "Tipo", "Tema", "Data_Publicacao", "Disponivel"], 
+        headers=["ISBN", "Título", "Idioma", "Tipo", "Tema", "Ano Publicação", "Disponível"]
     )
 
     print("\nLista filtrada  por titulo (Python) e ordenadapor orden ascendente de titulo:\n")
-    livros = dao.listar(filtros={"titulo": "Python"}, order_by="titulo", direction="asc")
+    livros = dao.listar(filtros={"titulo": "Python", "disponivel": "disponivel"}, order_by="titulo", direction="asc")
     tools.print_list(
         livros, 
-        columns=["ISBN", "Titulo", "Idioma", "Tipo", "Tema", "Data_Publicacao"], 
-        headers=["ISBN", "Título", "Idioma", "Tipo", "Tema", "Ano Publicação"]
+        columns=["ISBN", "Titulo", "Idioma", "Tipo", "Tema", "Data_Publicacao", "Disponivel"], 
+        headers=["ISBN", "Título", "Idioma", "Tipo", "Tema", "Ano Publicação", "Disponível"]
     )
 
     print("\nAlterar nome ao livro inserido (ISBN = '9781234567890')...\n ")  
@@ -172,8 +173,8 @@ if __name__ == "__main__":
     livros = dao.listar(filtros={"titulo": "Python"}, order_by="titulo", direction="asc")
     tools.print_list(
         livros, 
-        columns=["ISBN", "Titulo", "Idioma", "Tipo", "Tema", "Data_Publicacao"], 
-        headers=["ISBN", "Título", "Idioma", "Tipo", "Tema", "Ano Publicação"]
+        columns=["ISBN", "Titulo", "Idioma", "Tipo", "Tema", "Data_Publicacao", "Disponivel"], 
+        headers=["ISBN", "Título", "Idioma", "Tipo", "Tema", "Ano Publicação", "Disponível"]
     )
 
     print("\nEliminar o livro inserido (ISBN = '9781234567890')...\n ")
@@ -183,6 +184,6 @@ if __name__ == "__main__":
     livros = LivroDAO().listar()
     tools.print_list(
         livros, 
-        columns=["ISBN", "Titulo", "Idioma", "Tipo", "Tema", "Data_Publicacao"], 
-        headers=["ISBN", "Título", "Idioma", "Tipo", "Tema", "Ano Publicação"]
+        columns=["ISBN", "Titulo", "Idioma", "Tipo", "Tema", "Data_Publicacao", "Disponivel"], 
+        headers=["ISBN", "Título", "Idioma", "Tipo", "Tema", "Ano Publicação", "Disponível"]
     )    

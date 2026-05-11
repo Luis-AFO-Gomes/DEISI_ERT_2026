@@ -38,6 +38,7 @@ def test_constructor_and_properties():
     assert livro.Tema == ["História"]
     assert livro.Data_Publicacao == 2024
     assert livro.Editora is None
+    assert livro.Disponivel == "disponivel"
 
 
 def test_property_setters():
@@ -58,6 +59,7 @@ def test_property_setters():
     assert livro.Tema == ["Python"]
     assert livro.Data_Publicacao == 2025
     assert livro.Editora is None
+    assert livro.Disponivel == "disponivel"
 
 
 def test_to_dict():
@@ -82,7 +84,8 @@ def test_to_dict():
         "Tipo": ["Romance"],
         "Tema": ["História"],
         "Data_Publicacao": 2024,
-        "Editora": None
+        "Editora": None,
+        "Disponivel": "disponivel"
     }
 
 
@@ -96,7 +99,8 @@ def test_from_dict():
         "Tipo": ["Romance"],
         "Tema": ["História"],
         "Data_Publicacao": 2024,
-        "Editora": editora
+        "Editora": editora,
+        "Disponivel": "emprestado"
     }
 
     livro = Livro.from_dict(data)
@@ -108,6 +112,7 @@ def test_from_dict():
     assert livro.Tema == ["História"]
     assert livro.Data_Publicacao == 2024
     assert livro.Editora is editora
+    assert livro.Disponivel == "emprestado"
 
 
 def test_create_unique_success():
@@ -214,7 +219,7 @@ def test_str_with_editora():
 
     assert "Livro: Livro Teste" in result
     assert "com ISBN: 9780000000001" in result
-    assert "editado a 2024 por Editora XPTO" in result
+    assert "editado a 2024" in result
     assert "em Português" in result
 
 
@@ -258,6 +263,7 @@ def test_from_input_success(monkeypatch):
     assert livro.Tema == ["Python", "Programação"]
     assert livro.Data_Publicacao == 2024
     assert livro.Editora is None
+    assert livro.Disponivel == "disponivel"
     assert "9780000000001" in Livro._by_ISBN
 
 

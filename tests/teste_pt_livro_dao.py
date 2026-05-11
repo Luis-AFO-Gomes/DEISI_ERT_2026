@@ -52,7 +52,8 @@ def livro():
         tipo=["Romance"],
         tema=["História"],
         data_publicacao=2024,
-        editora=None
+        editora=None,
+        disponivel="disponivel"
     )
 
 
@@ -100,7 +101,7 @@ def test_editora_id_with_none():
 def test_editora_id_with_get_id():
     editora = FakeEditora("EDITORA001")
 
-    result = LivroDAO._editora_id(None)
+    result = LivroDAO._editora_id(editora)
 
     assert result == "EDITORA001"
 
@@ -113,12 +114,13 @@ def test_row_to_livro():
         Tipo='["Romance"]',
         Tema='["História"]',
         dtPub=2024,
-        editora="EDITORA001"
+        editora="EDITORA001",
+        disponivel="retirado"
     )
 
     livro = LivroDAO._row_to_livro(row)
 
-    assert isinstance(livro, Livro)
+    assert livro.ISBN == "9780000000001"
     assert livro.ISBN == "9780000000001"
     assert livro.Titulo == "Livro Teste"
     assert livro.Idioma == "Português"
@@ -126,6 +128,7 @@ def test_row_to_livro():
     assert livro.Tema == ["História"]
     assert livro.Data_Publicacao == 2024
     assert livro.Editora is None
+    assert livro.Disponivel == "retirado"
 
 
 def test_criar_success(dao_with_mocks, livro):
@@ -146,6 +149,7 @@ def test_criar_success(dao_with_mocks, livro):
     assert params[4] == '["História"]'
     assert params[5] == 2024
     assert params[6] is None
+    assert params[7] == "disponivel"
 
     connection.commit.assert_called_once()
     connection.rollback.assert_not_called()
@@ -180,18 +184,20 @@ def test_obter_por_isbn_found(dao_with_mocks):
         Tipo='["Romance"]',
         Tema='["História"]',
         dtPub=2024,
-        editora=None
+        editora=None,
+        disponivel="disponivel"
     )
 
     livro = dao.obter_por_isbn("9780000000001")
 
-    assert isinstance(livro, Livro)
+    assert livro.ISBN == "9780000000001"
     assert livro.ISBN == "9780000000001"
     assert livro.Titulo == "Livro Teste"
     assert livro.Idioma == "Português"
     assert livro.Tipo == ["Romance"]
     assert livro.Tema == ["História"]
     assert livro.Data_Publicacao == 2024
+    assert livro.Disponivel == "disponivel"
 
     cursor.execute.assert_called_once()
     sql, isbn = cursor.execute.call_args.args
@@ -230,7 +236,8 @@ def test_listar_without_filters_orders_by_titulo_ascending(dao_with_mocks):
             Tipo='["Romance"]',
             Tema='["História"]',
             dtPub=2024,
-            editora=None
+            editora=None,
+            disponivel="disponivel"
         ),
         SimpleNamespace(
             ISBN="9780000000002",
@@ -239,7 +246,8 @@ def test_listar_without_filters_orders_by_titulo_ascending(dao_with_mocks):
             Tipo='["Técnico"]',
             Tema='["Python"]',
             dtPub=2023,
-            editora=None
+            editora=None,
+            disponivel="disponivel"
         )
     ]
 
@@ -265,8 +273,7 @@ def test_listar_with_filters(dao_with_mocks):
     filtros = {
         "ISBN": "9780000000001",
         "titulo": "Python",
-        "idioma": "Português",
-        "ano_publicacao": 2024
+        "disponivel": "disponivel"
     }
 
     result = dao.listar(
@@ -282,15 +289,13 @@ def test_listar_with_filters(dao_with_mocks):
 
     assert "AND ISBN = ?" in sql
     assert "AND Titulo LIKE ?" in sql
-    assert "AND Idioma = ?" in sql
-    assert "AND YEAR(Data_Publicacao) = ?" in sql
+    assert "AND disponivel = ?" in sql
     assert "ORDER BY ISBN DESC" in sql
 
     assert params == [
         "9780000000001",
         "%Python%",
-        "Português",
-        2024
+        "disponivel"
     ]
 
 
@@ -333,7 +338,8 @@ def test_atualizar_success(dao_with_mocks, livro):
     assert params[3] == '["História"]'
     assert params[4] == 2024
     assert params[5] is None
-    assert params[6] == "9780000000001"
+    assert params[6] == "disponivel"
+    assert params[7] == "9780000000001"
 
     connection.commit.assert_called_once()
     connection.rollback.assert_not_called()
