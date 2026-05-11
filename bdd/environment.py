@@ -59,7 +59,7 @@ class CatalogService:
     def __init__(self, dao: LivroDAO):
         self.dao = dao
 
-        self.default_fields = ["titulo", "autor", "idioma", "ano_publicacao"]
+        self.default_fields = ["titulo", "autor", "idioma", "ano_publicacao", "disponivel"]
         self.default_options = ["consultar_detalhes", "ordenar", "filtrar", "navegar"]
 
         self.current_page = None
@@ -113,7 +113,7 @@ class CatalogService:
             self.last_filter_was_applied = False
             return False
 
-        allowed_filters = {"titulo", "autor", "idioma", "ano_publicacao"}
+        allowed_filters = {"titulo", "autor", "idioma", "ano_publicacao", "disponivel"}
 
         if field not in allowed_filters:
             raise ValueError(f"Filtro não suportado: {field}")
@@ -138,6 +138,7 @@ class CatalogService:
             "autor": autores_por_isbn.get(isbn, "(autor não registado)"),
             "idioma": livro.Idioma,
             "ano_publicacao": publication_year(livro.Data_Publicacao),
+            "disponivel": livro.Disponivel,
             "details_ref": isbn,
         }
 

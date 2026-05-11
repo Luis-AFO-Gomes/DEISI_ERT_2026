@@ -9,12 +9,13 @@ class Livro:
     __tipo: list
     __tema: list
     __data_publicacao: int
-    __editora: Editora | None 
+    __editora: Editora | None
+    __disponivel: str
 
     _by_ISBN: dict[str, "Livro"] = {}
 
 # Constructores
-    def __init__(self, ISBN, Titulo, idioma, tipo, tema, data_publicacao,editora: Editora | None):
+    def __init__(self, ISBN, Titulo, idioma, tipo, tema, data_publicacao, editora: Editora | None, disponivel: str = "disponivel"):
         self.__ISBN = ISBN
         self.__Titulo = Titulo
         self.__idioma = idioma
@@ -22,6 +23,7 @@ class Livro:
         self.__tema = tema
         self.__data_publicacao = data_publicacao
         self.__editora = editora
+        self.__disponivel = disponivel
 
     def to_dict(self):
         return {
@@ -32,14 +34,15 @@ class Livro:
             "Tema": self.Tema, 
 #            "Data_Publicacao": self.Data_Publicacao.strftime("%d-%m-%Y"), 
             "Data_Publicacao": self.Data_Publicacao,
-            "Editora": self.Editora
+            "Editora": self.Editora,
+            "Disponivel": self.Disponivel,
         }
 
     @classmethod
-    def _create_unique(cls, ISBN, Titulo, idioma, tipo, tema, data_publicacao, editora):
+    def _create_unique(cls, ISBN, Titulo, idioma, tipo, tema, data_publicacao, editora, disponivel="disponivel"):
         if ISBN in cls._by_ISBN:
             raise ValueError(f"Livro com ISBN {ISBN} já existe.")
-        obj = cls(ISBN, Titulo, idioma, tipo, tema, data_publicacao, editora)
+        obj = cls(ISBN, Titulo, idioma, tipo, tema, data_publicacao, editora, disponivel)
         cls._by_ISBN[ISBN] = obj
         return obj
 
@@ -52,7 +55,8 @@ class Livro:
             d["Tipo"], 
             d["Tema"], 
             d["Data_Publicacao"], 
-            d["Editora"]
+            d["Editora"],
+            d.get("Disponivel", "disponivel"),
         )
     
     @classmethod
@@ -76,7 +80,7 @@ class Livro:
             tema.append(novo_tema)
         data_publicacao = val.valid_date("Data de Publicação do Livro") 
         editora = None
-        return cls._create_unique(ISBN, Titulo, idioma, tipo, tema, data_publicacao, editora)   
+        return cls._create_unique(ISBN, Titulo, idioma, tipo, tema, data_publicacao, editora, "disponivel")
 
 # Descritores
     def __str__(self):
@@ -137,6 +141,14 @@ class Livro:
     def Tema(self, tema):
         self.__tema = tema
 
+    @property
+    def Disponivel(self):
+        return self.__disponivel
+
+    @Disponivel.setter
+    def Disponivel(self, disponivel: str):
+        self.__disponivel = disponivel
+
 # Métodos adicionais da classe
     def adicionar_tipo(self, tipo):
         if tipo not in self.__tipo:
@@ -145,4 +157,3 @@ class Livro:
     def adicionar_tema(self, tema):
         if tema not in self.__tema:
             self.__tema.append(tema)
-

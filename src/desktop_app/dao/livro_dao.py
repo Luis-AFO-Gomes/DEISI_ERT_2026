@@ -86,7 +86,8 @@ class LivroDAO(DAO):
             tipo=LivroDAO._list_from_db(row.Tipo),
             tema=LivroDAO._list_from_db(row.Tema),
             data_publicacao=row.dtPub,
-            editora=None
+            editora=None,
+            disponivel=LivroDAO._availability_from_db(row.disponivel),
         )
 
     # ---------------------------------------------------------
@@ -111,9 +112,10 @@ class LivroDAO(DAO):
                 Tipo,
                 Tema,
                 dtPub,
-                editora
+                editora,
+                disponivel
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         """
 
         try:
@@ -125,7 +127,8 @@ class LivroDAO(DAO):
                 self._list_to_db(livro.Tipo),
                 self._list_to_db(livro.Tema),
                 livro.Data_Publicacao,
-                self._editora_id(livro.Editora)
+                self._editora_id(livro.Editora),
+                self._availability_to_db(livro.Disponivel),
             )
 
             connection = self.connect()
@@ -163,7 +166,8 @@ class LivroDAO(DAO):
                 Tipo,
                 Tema,
                 dtPub,
-                editora
+                editora,
+                disponivel
             FROM Livro
             WHERE ISBN = ?
         """
@@ -225,7 +229,8 @@ class LivroDAO(DAO):
                 Tipo,
                 Tema,
                 dtPub,
-                editora
+                editora,
+                disponivel
             FROM Livro
             WHERE 1 = 1
         """
@@ -239,6 +244,9 @@ class LivroDAO(DAO):
         if "titulo" in filtros:
             sql += " AND Titulo LIKE ?"
             params.append(f"%{filtros['titulo']}%")
+        if "disponivel" in filtros:
+            sql += " AND disponivel = ?"
+            params.append(self._availability_to_db(filtros["disponivel"]))
 
         sql += f" ORDER BY {order_column} {sql_direction}"
 
@@ -274,7 +282,8 @@ class LivroDAO(DAO):
                 Tipo = ?,
                 Tema = ?,
                 dtPub = ?,
-                editora = ?
+                editora = ?,
+                disponivel = ?
             WHERE ISBN = ?
         """
 
@@ -287,6 +296,7 @@ class LivroDAO(DAO):
                 self._list_to_db(livro.Tema),
                 livro.Data_Publicacao,
                 self._editora_id(livro.Editora),
+                self._availability_to_db(livro.Disponivel),
                 livro.ISBN
             )
 
@@ -360,3 +370,16 @@ class LivroDAO(DAO):
         row = cursor.fetchone()
 
         return row is not None and row.total > 0
+    @staticmethod
+    def _availability_to_db(value: str) -> str:
+        normalized = str(value).strip().lower()
+        aliases = {
+            "disponivel": "disponivel", "disponível": "disponivel", "available": "disponivel",
+            "emprestado": "emprestado", "borrowed": "emprestado", "out": "emprestado",
+            "retirado": "retirado", "removed": "retirado", "retired": "retirado"
+        }
+        return aliases.get(normalized, normalized)
+
+    @staticmethod
+    def _availability_from_db(value) -> str:
+        return LivroDAO._availability_to_db(value if value is not None else "disponivel")
