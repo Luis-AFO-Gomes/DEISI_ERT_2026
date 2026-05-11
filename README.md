@@ -12,9 +12,11 @@ The project development follows the ERT course lab classes, available on GitBook
 
 This project is a practical example designed to demonstrate how to test software at different levels and using different methodologies:
 
+- **Static Testing** - running code to confirm basic funcionality
 - **Unit Testing** — verifying individual components in isolation
 - **TDD (Test-Driven Development)** — writing tests before writing production code, letting tests drive design
 - **BDD (Behaviour-Driven Development)** — expressing expected system behaviour in plain language, bridging technical and business perspectives
+- **Test Regression** - making sure that changes in coding do not break existing functionality
 
 The goal is to provide a concrete, working example that can be followed alongside the lab classes, showing how requirements evolve into tests and how tests validate the implemented software.
 
