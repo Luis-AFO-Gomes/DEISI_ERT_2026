@@ -154,7 +154,17 @@ if __name__ == "__main__":
         headers=["ISBN", "Título", "Idioma", "Tipo", "Tema", "Ano Publicação", "Disponível"]
     )
 
-    print("\nLista filtrada  por titulo (Python) e ordenadapor orden ascendente de titulo:\n")
+    
+
+    print("\nLista filtrada por disponibilidade - livros emprestados - e ordenada por orden ascendente de titulo:\n")
+    livros = dao.listar(filtros={"disponivel": "emprestado"}, order_by="titulo", direction="asc")
+    tools.print_list(
+        livros, 
+        columns=["ISBN", "Titulo", "Idioma", "Tipo", "Tema", "Data_Publicacao", "Disponivel"], 
+        headers=["ISBN", "Título", "Idioma", "Tipo", "Tema", "Ano Publicação", "Disponível"]
+    )
+
+    print("\nLista filtrada por titulo (Python) e ordenada por orden ascendente de titulo:\n")
     livros = dao.listar(filtros={"titulo": "Python", "disponivel": "disponivel"}, order_by="titulo", direction="asc")
     tools.print_list(
         livros, 
