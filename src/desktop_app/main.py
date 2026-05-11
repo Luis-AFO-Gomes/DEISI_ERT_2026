@@ -22,7 +22,7 @@ def test_db_connection():
         print("Test DB Connection: Failed")
 
 def print_table(rows, headers, max_width=40):
-    # converte tudo para string (com truncagem)
+    # convert all values to strings, for screen display, truncating to max_width when necessary
     def fmt(v):
         s = "" if v is None else str(v)
         s = s.replace("\n", " ")
@@ -44,7 +44,7 @@ def print_table(rows, headers, max_width=40):
         print(" | ".join(cell.ljust(w) for cell, w in zip(row, widths)))        
 
 def list_table(conn: pyodbc.Connection, table: str, schema: str = "dbo", top: int = 100):
-    # validação simples para evitar SQL injection em nomes
+    # simple validation of db names to prevent SQL injection
     import re
     if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", table) or not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", schema):
         raise ValueError("Invalid schema/table name")
@@ -60,7 +60,7 @@ def list_table(conn: pyodbc.Connection, table: str, schema: str = "dbo", top: in
     print_table(rows, headers) 
 
 def autors_livro(conn: pyodbc.Connection, table: str, schema: str = "dbo", livro: str = "", top: int = 100):
-    # validação simples para evitar SQL injection em nomes
+    # simple validation of db names to prevent SQL injection
     import re
     if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", table) or not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", schema):
         raise ValueError("Invalid schema/table name")
@@ -95,9 +95,9 @@ def autors_livro(conn: pyodbc.Connection, table: str, schema: str = "dbo", livro
  
 
 if __name__ == "__main__":
-#   Testes estáticos para validação de ligação à base de dados e funcionalidade básica da DAO de Livro. 
-#   Estes testes não são exaustivos e servem apenas para validação inicial. Não dispensam testes unitários, mais completos e estruturados,
-#   nem testes de integração - em formato BDD ou equivalente - que devem ser implementados posteriormente para garantir a robustez e fiabilidade da aplicação.
+#   Static tests for validating database connection and basic functionality of the 'Livro' DAO.
+#   This is not extended testing, tests below are only intended for initial validation. They do not replace more complete and structured unit tests, 
+#   nor integration tests - in BDD format or equivalent - that should be implemented afterwards to ensure the robustness and reliability of the application.
 
 #    test_db_connection()
 
