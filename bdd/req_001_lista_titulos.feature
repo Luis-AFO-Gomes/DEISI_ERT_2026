@@ -15,7 +15,7 @@ Feature: Lista de títulos
 
   Scenario: Apresentar os dados obrigatórios de cada título listado
     When a página inicial é carregada
-    Then cada título listado apresenta os campos "titulo", "autor", "idioma" e "ano_publicacao"
+    Then cada título listado apresenta os campos "titulo", "autor", "idioma", "ano_publicacao" e "disponivel"
 
   Scenario: Disponibilizar acesso aos detalhes de cada título
     When a página inicial é carregada

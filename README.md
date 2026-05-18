@@ -100,6 +100,9 @@ python -m pip install -e .
 1. Ensure a running MSSQL instance is available.
 2. Execute the SQL script [sql/biblioteca.sql](sql/biblioteca.sql) to create and seed the `biblioteca` database.
 3. Review and update [src/desktop_app/config/config.ini](src/desktop_app/config/config.ini) with your local database settings.
+##### For version 2.0 - Book availability
+4. Execute the SQL script [sql/biblioteca_v2.sql](sql/biblioteca_v2.sql) to update the database schema and data for book availability.
+5. (optional) Using a SQL Client, verify that the `biblioteca` database contains the `livros` table with the expected columns and data.
 
 The application reads database connection properties from [src/desktop_app/config/config.ini](src/desktop_app/config/config.ini) (`driver`, `host`, `db`, `user`, `pass`, encryption options). These values should be adapted to each local MSSQL installation.
 
