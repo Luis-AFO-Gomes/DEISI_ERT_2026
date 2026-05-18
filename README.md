@@ -57,7 +57,7 @@ To follow the project from requirements to tests, read the documentation artefac
 
 1. **[Vision](docs/vision.md)** — understand the purpose and context of the project
 2. **[Objectives & CSFs](docs/objectives_fcs.md)** — the objectives and functional/critical elements
-3. **Requirements** (e.g. [Requirements v2](docs/requirements_v2.md)) — the defined functional requirements
+3. **Requirements** (e.g. [Requirements v3](docs/requirements_v3.md)) — the defined functional requirements
 4. **Use Cases** (e.g. [Use Cases v2](docs/use_case_v2.md)) — how users interact with the system
 5. **Acceptance Criteria** (e.g. [Acceptance Criteria v2](docs/acceptance_criteria_v2.md)) — the conditions that must be met for each requirement
 6. **Test Cases** (e.g. [Test Cases v2](docs/test_cases_v2.md)) — the concrete test cases derived from acceptance criteria
